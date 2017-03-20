@@ -42,7 +42,6 @@ public:
             Vec3 ab(b.x - a.x, b.y - a.y, b.z - a.z);
             Vec3 ac(c.x - a.x, c.y - a.y, c.z - a.z);
             Vec3 ap(p.x - a.x, p.y - a.y, p.z - a.z);
-<<<<<<< HEAD
             float alpha = ( ac.dot(ac)*ap.dot(ab) - ac.dot(ab)*ap.dot(ac) ) / ( ac.dot(ac)*ab.dot(ab)-ac.dot(ab)*ab.dot(ac) );
             float beta = ( ab.dot(ab)*ap.dot(ac) - ac.dot(ab)*ap.dot(ab) ) / ( ac.dot(ac)*ab.dot(ab) - ac.dot(ab)*ab.dot(ac) );
             //float test_val = alpha * ab.z + beta * ab.z - ap.z;
@@ -54,19 +53,6 @@ public:
                 printf("%f %f\n", alpha, beta);
                 return vertexnormal(p, this->mnormal*(-this->mnormal.dot(theray.dir)));
             }
-=======
-            float alpha = (ap.x * ac.y - ap.y * ac.x) / (ab.x * ac.y - ab.y * ac.x);
-            float beta = (ap.x - ab.x * alpha) / ac.x;
-            if (alpha < 0 || alpha > 1 || beta < 0 || beta > 1 || alpha + beta > 1 ) return res;
-			else {
-				if (this->mnormal.dot(theray.dir) > 0) {
-					this->mnormal.x = -this->mnormal.x;
-					this->mnormal.y = -this->mnormal.y;
-					this->mnormal.z = -this->mnormal.z;
-				}
-				return vertexnormal(p,this->mnormal);
-			}
->>>>>>> origin/master
 		}
 	}
 };
