@@ -129,7 +129,6 @@
     <ClInclude Include="readfile.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="sphere.h" />
-    <ClInclude Include="Transform.h" />
     <ClInclude Include="transformation.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="variables.h" />

@@ -48,9 +48,6 @@
     <ClInclude Include="sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="transformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>

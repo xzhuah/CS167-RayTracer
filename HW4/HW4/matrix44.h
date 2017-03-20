@@ -1,6 +1,7 @@
 #pragma once
 #include "vec3.h"
-
+#include <iostream>
+using namespace std;
 class matrix44 {
 public:
 	float matrix[4][4];
@@ -95,9 +96,9 @@ matrix44 matrix44::createRotateMatrix44(float degrees, const Vec3& axis) {
 }
 matrix44 matrix44::createTranslateMatrix44(float tran_x, float tran_y, float tran_z) {
 	float scale[4][4] = {
-		{ 0,	0,	0,	tran_x },
-		{ 0,	0,	0,	tran_y },
-		{ 0,	0,	0,	tran_z },
+		{ 1,	0,	0,	tran_x },
+		{ 0,	1,	0,	tran_y },
+		{ 0,	0,	1,	tran_z },
 		{ 0,	0,	0,	1 }
 	};
 	matrix44 result(scale);
@@ -137,12 +138,15 @@ matrix44 matrix44::operator*(const matrix44& other) const {
 		for (int j = 0; j < 4; j++) {
 			float ele = 0;
 			for (int k = 0; k < 4; k++) {
-				ele += this->matrix[i][k] * other.matrix[k][j];
+				ele += (this->matrix[i][k] * other.matrix[k][j]);
+			
 			}
 			result[i][j] = ele;
 		}
 	}
+
 	matrix44 final(result);
+
 	return final;
 }
 matrix44& matrix44::operator=(const matrix44& mat) {

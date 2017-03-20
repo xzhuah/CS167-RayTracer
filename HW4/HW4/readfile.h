@@ -61,7 +61,7 @@ void matransform(stack<matrix44> &transfstack, float* values)
 void rightmultiply(const matrix44 & M, stack<matrix44> &transfstack) 
 {
     matrix44 &T = transfstack.top(); 
-    T = T * M; 
+	T = T*M;
 }
 
 // Function to read the input data values
@@ -231,6 +231,13 @@ void readfile(const char* filename)
 
                         // Set the object's transform
                         obj->transform = transfstack.top(); 
+						cout << "=======================================" << endl;
+						for (int i = 0; i < 4; i++) {
+							for (int j = 0; j < 4; j++) {
+								cout << obj->transform.matrix[i][j] << " ";
+							}
+							cout << endl;
+						}
                     }
                 }
 
