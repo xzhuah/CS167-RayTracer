@@ -10,11 +10,10 @@ using std::vector;
 
 int main() {
 	pixel_image myimage(width, height);
-    camera mycamera(posi, lookat, up, fovy);
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			pixel p(0,0,0);
-			myimage.calcPixel(mycamera.genRay(i, j, width, height, max_depth), objects);
+			myimage.calcPixel(i, j, mycamera.genRay(i, j, width, height), objects, maxdepth);
 		}
 	}
 	myimage.outputImage("testing2.png");
