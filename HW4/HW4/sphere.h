@@ -38,6 +38,7 @@ public:
 		else {
 			float r1 = (-b + pow(delta, 0.5)) / 2 / a;
 			float r2 = (-b - pow(delta, 0.5)) / 2 / a;
+			if (r1 <= 0) return vertexnormal();
 			if (r2 > 0) {
 				point inter_point=theray.calcPosi(r2);
 				Vec3 normal = inter_point.minus(this->center);
