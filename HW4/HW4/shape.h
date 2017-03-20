@@ -1,6 +1,7 @@
 #pragma once
 #include "ray.h"
 #include "vertexnormal.h"
+#include "matrix44.h"
 class Shape {
 public:
     color ambient;
@@ -8,7 +9,7 @@ public:
     color specular;
     color emission;
     float shininess;
-    mat4 transform;
+    matrix44 transform;
 	Shape() {
 
 	}

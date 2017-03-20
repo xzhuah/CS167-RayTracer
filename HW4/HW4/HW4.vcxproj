@@ -18,34 +18,9 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="color.h" />
-    <ClInclude Include="FreeImage.h" />
-    <ClInclude Include="intersection.h" />
-    <ClInclude Include="matrix44.h" />
-    <ClInclude Include="normal.h" />
-    <ClInclude Include="pixel.h" />
-    <ClInclude Include="pixel_image.h" />
-    <ClInclude Include="point.h" />
-    <ClInclude Include="primitive.h" />
-    <ClInclude Include="ray.h" />
-    <ClInclude Include="readfile.h" />
-    <ClInclude Include="shape.h" />
-    <ClInclude Include="sphere.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="transformation.h" />
-    <ClInclude Include="triangle.h" />
-    <ClInclude Include="variables.h" />
-    <ClInclude Include="vec3.h" />
-    <ClInclude Include="vertexnormal.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C22864B2-1FC5-4D73-BE2A-7ABE4D59438C}</ProjectGuid>
-    <RootNamespace>RayTracer</RootNamespace>
+    <ProjectGuid>{67F6D8C0-9815-4C2E-8430-D9057A1BC0A7}</ProjectGuid>
+    <RootNamespace>HW4</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -100,9 +75,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -110,9 +82,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -125,7 +94,6 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,9 +107,30 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="color.h" />
+    <ClInclude Include="FreeImage.h" />
+    <ClInclude Include="matrix44.h" />
+    <ClInclude Include="pixel.h" />
+    <ClInclude Include="pixel_image.h" />
+    <ClInclude Include="point.h" />
+    <ClInclude Include="ray.h" />
+    <ClInclude Include="readfile.h" />
+    <ClInclude Include="shape.h" />
+    <ClInclude Include="sphere.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="transformation.h" />
+    <ClInclude Include="triangle.h" />
+    <ClInclude Include="variables.h" />
+    <ClInclude Include="vec3.h" />
+    <ClInclude Include="vertexnormal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

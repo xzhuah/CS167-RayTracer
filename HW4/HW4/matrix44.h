@@ -54,10 +54,10 @@ matrix44 matrix44::createMatrix44(float rotateX, float rotateY, float rotateZ, f
 */
 matrix44  matrix44::createScaleMatrix44(float scale_x, float scale_y, float scale_z) {
 	float scale[4][4] = {
-		{ scale_x,	0,	0,	0 },
-		{ 0,	scale_y,	0,	0 },
-		{ 0,	0,	scale_z,	0 },
-		{ 0,	0,	0,	1 }
+		{ scale_x, 0, 0, 0 },
+		{ 0, scale_y, 0, 0 },
+		{ 0, 0,	scale_z, 0 },
+		{ 0, 0, 0, 1 }
 	};
 	matrix44 result(scale);
 	return result;
@@ -69,14 +69,14 @@ matrix44 matrix44::createRotateMatrix44(float degrees, const Vec3& axis) {
     matrix44 ret;
     matrix44 myIdentity = matrix44(1);
     float tmp1[4][4] = { axis.x*axis.x, axis.x*axis.y, axis.x*axis.z, 0,
-                        axis.x*axis.y, axis.y*axis.y, axis.y*axis.z, 0,
-                        axis.x*axis.z, axis.y*axis.z, axis.z*axis.z, 0,
-                        0,0,0,0 };
+                         axis.x*axis.y, axis.y*axis.y, axis.y*axis.z, 0,
+                         axis.x*axis.z, axis.y*axis.z, axis.z*axis.z, 0,
+                         0,0,0,0 };
     matrix44 myAAT = matrix44(tmp1);
     float tmp2[4][4] = { 0, -axis.z, axis.y, 0,
-                        axis.z, 0, -axis.x, 0,
-                        -axis.y, axis.x, 0, 0,
-                        0,0,0,0 };
+                         axis.z, 0, -axis.x, 0,
+                         -axis.y, axis.x, 0, 0,
+                         0,0,0,0 };
     matrix44 myAstar = matrix44(tmp2);
     // You will change this return call
     ret = myIdentity*cos(degrees*PI / 180.0) + myAAT*(1 - cos(degrees*PI / 180.0)) + myAstar*sin(degrees*PI / 180.0);

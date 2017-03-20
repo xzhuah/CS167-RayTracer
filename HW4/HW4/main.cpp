@@ -1,26 +1,10 @@
 #pragma once
-
 #include <vector>
 #include "pixel_image.h"
 #include "pixel.h"
 #include "Shape.h"
 #include "camera.h"
-
-#include "primitive.h"
-#include "pixel_image.h"
-#include "pixel.h"
-
-int main() {
-
-	int height = 300;
-	int width = 180;
-
-	pixel_image myimage(width, height);//to out put
-
-
-}
-
-using std::vector;
+#include "variables.h"
 
 int main() {
 	pixel_image myimage(width, height);
