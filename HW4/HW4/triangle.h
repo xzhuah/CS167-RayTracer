@@ -37,6 +37,9 @@ public:
 		}
 		else {
 			float t = up / down;
+			if (t < 0) {
+				return res;
+			}
 			point p = theray.calcPosi(t);
             //printf("%f %f %f\n", p.x, p.y, p.z);
             Vec3 ab(b.x - a.x, b.y - a.y, b.z - a.z);
