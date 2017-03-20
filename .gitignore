@@ -38,6 +38,7 @@ local.properties
 
 *.sln
 *.db
+*.opendb
 
 
 # User-specific files
