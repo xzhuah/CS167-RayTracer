@@ -231,6 +231,7 @@ void readfile(const char* filename)
 
                         // Set the object's transform
                         obj->transform = transfstack.top(); 
+                        /*
 						cout << "=======================================" << endl;
 						for (int i = 0; i < 4; i++) {
 							for (int j = 0; j < 4; j++) {
@@ -238,6 +239,7 @@ void readfile(const char* filename)
 							}
 							cout << endl;
 						}
+                        */
                     }
                 }
 

@@ -21,16 +21,8 @@ public:
 
 	void calcPixel(int x, int y, ray myray, int max_depth) {
 		color c = myCalcPixel(myray, max_depth);
-		if (c.r>1) {
-			c.r = 1;
-		}
-		if (c.g>1) {
-			c.g = 1;
-		}
-		if (c.b>1) {
-			c.b = 1;
-		}
 		image[x*width + y] = pixel(c.r * 255 + 0.5, c.g * 255 + 0.5, c.b * 255 + 0.5);
+        //printf("%f %f %f\n", c.r, c.g, c.b);
 	}
 
 	color myCalcPixel(ray myray, int max_depth) {
@@ -41,54 +33,32 @@ public:
 		int idx = -1;
 		getIntersection(myray, vn, idx);
 		if (idx == -1) return res;
-		//cout << vn.vertex.x << " " << vn.vertex.y << " " << vn.vertex.z << endl;
-		//cout << idx << endl;
 		ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))));
 		newray.source = newray.source + newray.dir*eps;
 		res = objects[idx]->ambient + objects[idx]->emission;
 		float decay, dis;
-		//objects[idx]->debug();
+        //printf("%d\n", lights.size());
 		for (int i = 0; i < lights.size(); i++) {
-			
+            //printf("calc lights\n");
 			if (visible(vn.vertex, lights[i])) {
-				//cout << "Yes" << endl;
+                //printf("here!!!!!!!!!!!!!!!!!!!!!!\n");
 				if (lights[i].type == 1) {
 					dis = vn.vertex.getdis(point(lights[i].dir.x, lights[i].dir.y, lights[i].dir.z));
 					decay = 1 / (attenuation_const + attenuation_linear*dis + attenuation_quadratic*dis*dis);
+                    //printf("%f %f %f %f\n", attenuation_const, attenuation_linear, attenuation_quadratic, decay);
 				}
-				else decay = 1;
+                else decay = 1.0f;
 				Vec3 light_dir = lights[i].type == 0 ? lights[i].dir :  lights[i].dir - Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z) ;
                 light_dir = Vec3::normalize(light_dir);
-				Vec3 half_angle = Vec3::normalize( Vec3::normalize(myray.dir).negative() + light_dir );
-                //printf("%f %f %f\n", light_dir.x, light_dir.y, light_dir.z);
-                //printf("%f\n", vn.mynormal.dot(light_dir));
-                //printf("%f\n", decay);
-                //printf("%f %f %f\n", lights[i].c.r*decay, lights[i].c.g*decay, lights[i].c.b*decay);
-                //printf("%f %f %f\n", res.r, res.g, res.b);
+				Vec3 half_angle = Vec3::normalize( myray.dir.negative() + light_dir );
 
-
-				res = res + lights[i].c * decay *
-					  (objects[idx]->diffuse  * max(vn.mynormal.dot(light_dir), 0) +//alway 0??
-				       objects[idx]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[idx]->shininess)
-				      );
-
-				
-
-				//cout << "=============" << endl;
-				//objects[idx]->debug();
-				//cout << vn.mynormal .x<<" "<< vn.mynormal.y <<" "<< vn.mynormal.z <<" "<< endl;
-				//cout << light_dir.x << " " << light_dir.y << " " << light_dir.z << " " << endl;
-				//cout << half_angle.x << " " << half_angle.y << " " << half_angle.z << " " << endl;
-				//cout << myray.dir.x << " " << myray.dir.y << " " << myray.dir.z << " " << endl;
-				//cout << res.r<<" " <<res.g<<" "<<res.b<< endl;
-                //printf("%f %f %f\n", res.r, res.g, res.b);
-                //printf("<-------------->\n");
+                color lambert = objects[idx]->diffuse  * max(vn.mynormal.dot(light_dir), 0);
+                color phong = objects[idx]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[idx]->shininess);
+                res = res + lights[i].c * decay * ( lambert + phong );
 			}
 		}
-		//printf("before: %f %f %f\n", res.r, res.g, res.b);
 		color post = myCalcPixel(newray, max_depth - 1); 
-        res = res + post * objects[idx]->specular;//
-		//printf("after: %f %f %f\n", res.r, res.g, res.b);
+        res = res + post * objects[idx]->specular;
 		return res;
 	}
 
@@ -113,7 +83,7 @@ private:
 		float min_dis = 1e9, cur_dis;
 		for (int i = 0; i < objects.size(); i++) {
 			tmp = objects[i]->findIntersection(myray.transf(matrix44::inverse(objects[i]->transform)));
-			tmp.transf(objects[i]->transform);
+			tmp = tmp.transf(objects[i]->transform);
 			if (tmp.mynormal.x == 0 && tmp.mynormal.y == 0 && tmp.mynormal.z == 0) continue;
 			cur_dis = tmp.vertex.getdis(myray.source);
 			if (cur_dis < min_dis) {
@@ -123,11 +93,10 @@ private:
 			}
 		}
 	}
-	bool visible(point pos, const Light& light) {
-		
-		Vec3 light_dir = light.type == 0 ? light.dir :  light.dir- Vec3(pos.x, pos.y, pos.z) ;
-		light_dir = Vec3::normalize(light_dir);
-		ray myray(pos+light_dir*0.01, light_dir);
+	bool visible(point pos, Light light) {
+		Vec3 light_dir = light.type == 0 ? light.dir : light.dir - Vec3(pos.x, pos.y, pos.z);
+        light_dir = Vec3::normalize(light_dir);
+		ray myray(pos + light_dir*0.001, light_dir);
 		vertexnormal vn;
 		int idx = -1;
 		getIntersection(myray, vn, idx);
@@ -135,9 +104,6 @@ private:
 		if (light.type == 0) return false;
 		float dis1 = vn.vertex.getdis(pos);
 		float dis2 = point(light.dir.x, light.dir.y, light.dir.z).getdis(pos);
-		//cout << dis1 << endl;
-		
-		//cout << dis2 << endl;
 		return dis1 > dis2;
 	}
 	float max(float a, float b) {

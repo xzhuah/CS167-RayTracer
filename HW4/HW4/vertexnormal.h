@@ -26,10 +26,9 @@ public:
     vertexnormal(const point& mypoint, const Vec3& mynormal) {
         vertex = mypoint;
         this->mynormal = mynormal;
-		this->mynormal.normalize();
     }
-   void transf(matrix44 mat) {
-        
+    vertexnormal transf(matrix44 mat) {
+        vertexnormal newvn;
         float tmp1[4] = { vertex.x, vertex.y, vertex.z, 1 };
         float tmp2[4] = { mynormal.x, mynormal.y, mynormal.z, 0 };
         float res[4];
@@ -39,7 +38,7 @@ public:
                 res[i] += mat.matrix[i][j] * tmp1[j];
             }
         }
-        this->vertex = point(res[0], res[1], res[2]);
+        newvn.vertex = point(res[0], res[1], res[2]);
         mat = matrix44::transpose(matrix44::inverse(mat));
         for (int i = 0; i < 4; i++) {
             res[i] = 0;
@@ -47,7 +46,7 @@ public:
                 res[i] += mat.matrix[i][j] * tmp2[j];
             }
         }
-        this->mynormal = Vec3::normalize(Vec3(res[0], res[1], res[2]));
-        
+        newvn.mynormal = Vec3::normalize(Vec3(res[0], res[1], res[2]));
+        return newvn;
     }
 };

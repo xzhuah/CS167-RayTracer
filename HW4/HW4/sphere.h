@@ -31,6 +31,7 @@ public:
 			return vertexnormal();
 		}
         else if (delta >= -eps && delta <= eps) {
+            if (b >= 0) return vertexnormal();
             point inter_point = theray.calcPosi(-b/2/a);
             Vec3 normal = inter_point.minus(this->center);
             return vertexnormal(inter_point, Vec3::normalize(normal));
@@ -38,14 +39,15 @@ public:
 		else {
 			float r1 = (-b + pow(delta, 0.5)) / 2 / a;
 			float r2 = (-b - pow(delta, 0.5)) / 2 / a;
-			if (r1 <= 0) return vertexnormal();
-			if (r2 > 0) {
+            if (r1 < 0) return vertexnormal();
+			else if (r2 > 0) {
 				point inter_point=theray.calcPosi(r2);
 				Vec3 normal = inter_point.minus(this->center);
                 return vertexnormal(inter_point, Vec3::normalize(normal));
 			}
 			else {
 				//ray source inside the sphere
+                //cout << "inside" << endl;
 				point inter_point = theray.calcPosi(r1);
 				Vec3 normal = this->center.minus(inter_point);
                 return vertexnormal(inter_point, Vec3::normalize(normal).negative());

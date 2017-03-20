@@ -60,7 +60,7 @@ public:
             }
             else {
                 //printf("%f %f\n", alpha, beta);
-                return vertexnormal(p, this->mnormal*(-down));
+                return vertexnormal(p, Vec3::normalize(this->mnormal*(-down)));
             }
 		}
 	}
