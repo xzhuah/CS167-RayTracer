@@ -208,18 +208,18 @@ void readfile(const char* filename)
                 else if (cmd == "sphere" || cmd == "tri" || cmd == "trinormal") {
                     if (cmd == "sphere") {
                         validinput = readvals(s, 4, values);
-                        objects.push_back(sphere(point(values[0], values[1], values[2]), values[3]));
+                        objects.push_back(new sphere(point(values[0], values[1], values[2]), values[3]));
                     }
                     else if (cmd == "tri") {
                         validinput = readvals(s, 3, values);
-                        objects.push_back(triangle(vertices[(int)values[0]], vertices[(int)values[0]], vertices[(int)values[0]]) );
+                        objects.push_back(new triangle(vertices[(int)values[0]], vertices[(int)values[0]], vertices[(int)values[0]]) );
                     }
                     else {
                         validinput = readvals(s, 3, values);
                         // to be implemented
                     }
                     if (validinput) {
-                        Shape* obj = &(objects.back());
+                        Shape* obj = (objects.back());
                         // Set the object's light properties
                         for (i = 0; i < 4; i++) {
                             (obj->ambient) = ambient; 

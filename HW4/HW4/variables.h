@@ -38,7 +38,7 @@ float shininess;
 float attenuation_const, attenuation_linear, attenuation_quadratic;
 
 // For multiple objects, read from a file.
-vector<Shape> objects;
+vector<Shape*> objects;
 vector<point> vertices;
 vector<vertexnormal> vtns;
 

@@ -34,7 +34,7 @@ public:
         if (idx == -1) return res;
         ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))) );
         newray.source = newray.source + newray.dir*eps;
-        res = objects[idx].ambient + objects[idx].emission;
+        res = objects[idx]->ambient + objects[idx]->emission;
         float decay, dis; 
         for (int i = 0; i < lights.size(); i++) {
             if (visible(vn.vertex, lights[i])) {
@@ -43,8 +43,8 @@ public:
                 Vec3 light_dir = lights[i].type == 0 ? lights[i].dir : lights[i].dir - Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z);
                 Vec3 half_angle = Vec3::normalize(myray.dir) - vn.mynormal * vn.mynormal.dot(myray.dir) * 2;
                 res = res + lights[i].c * decay * 
-                            ( objects[i].diffuse * max(vn.mynormal.dot(light_dir), 0) + 
-                              objects[i].specular*pow(max(vn.mynormal.dot(half_angle),0), objects[i].shininess) 
+                            ( objects[i]->diffuse * max(vn.mynormal.dot(light_dir), 0) + 
+                              objects[i]->specular*pow(max(vn.mynormal.dot(half_angle),0), objects[i]->shininess) 
                             );
             }
         }
@@ -72,8 +72,8 @@ private:
         vertexnormal tmp;
         float min_dis = 1e9, cur_dis;
         for (int i = 0; i < objects.size(); i++) {
-            tmp = objects[i].findIntersection(myray.transf(matrix44::inverse(objects[i].transform)));
-            tmp = tmp.transf(objects[i].transform);
+            tmp = objects[i]->findIntersection(myray.transf(matrix44::inverse(objects[i]->transform)));
+            tmp = tmp.transf(objects[i]->transform);
             if (tmp.mynormal.x == 0 && tmp.mynormal.y == 0 && tmp.mynormal.z == 0) return;
             cur_dis = tmp.vertex.getdis(myray.source);
             if (cur_dis < min_dis) {
