@@ -13,6 +13,8 @@ public:
 		this->radius = radius;
 	}
 	virtual vertexnormal findIntersection(ray& theray) {
+		//cout << "ray source:"<<theray.source.x << " " << theray.source.y << " " << theray.source.z << endl;
+		//cout << "ray dir:" << theray.dir.x << " " << theray.dir.y << " " << theray.dir.z << endl;
 		Vec3 Poc = theray.source.minus(this->center);
 		float a = theray.dir.dot(theray.dir);
 		float b = 2 * theray.dir.dot(Poc);

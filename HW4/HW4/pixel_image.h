@@ -32,6 +32,7 @@ public:
 		int idx = -1;
 		getIntersection(myray, vn, idx);
 		if (idx == -1) return res;
+		//cout << vn.vertex.x << " " << vn.vertex.y << " " << vn.vertex.z << endl;
 		ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))));
 		newray.source = newray.source + newray.dir*eps;
 		res = objects[idx]->ambient + objects[idx]->emission;
