@@ -12,6 +12,11 @@ public:
 		this->center = center;
 		this->radius = radius;
 	}
+	virtual string debug() {
+		cout << this->center.x << " " << this->center.y << " " << this->center.z<<" "<<this->radius << endl;
+		
+		return "";
+	}
 	virtual vertexnormal findIntersection(ray& theray) {
 		//cout << "ray source:"<<theray.source.x << " " << theray.source.y << " " << theray.source.z << endl;
 		//cout << "ray dir:" << theray.dir.x << " " << theray.dir.y << " " << theray.dir.z << endl;

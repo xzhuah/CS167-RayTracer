@@ -8,8 +8,10 @@
 #include "variables.h"
 #include "readfile.h"
 using namespace std;
+
 int main() {
-    readfile("D:/GoogleDownload/testscenes/scene3.test");
+    readfile("D:/GoogleDownload/homework_hw3-submissionscenes/hw3-submissionscenes/scene4-diffuse.test");
+	
 	float progress = 0;
 	pixel_image myimage(width, height);
 	for (int i = 0; i < height; i++) {
@@ -21,7 +23,7 @@ int main() {
 		cout << i <<"/"<<height<<" "<<progress<<"%"<<endl;//prograss
 	}
 
-	myimage.outputImage("testing2.png");
+	myimage.outputImage("D:/GoogleDownload/homework_hw3-submissionscenes/hw3-submissionscenes/scene4-diffuse.png");
 	cout << "finish" << endl;
 	/*float aa;
 	cin >> aa;*/

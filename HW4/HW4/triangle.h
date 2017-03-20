@@ -24,6 +24,12 @@ public:
 		
 
 	}
+	virtual string debug() {
+		cout << this->a.x<<" "<<this->a.y<<" "<<this->a.z << endl;
+		cout << this->b.x << " " << this->b.y << " " << this->b.z << endl;
+		cout << this->c.x << " " << this->c.y << " " << this->c.z << endl;
+		return "";
+	}
 	virtual vertexnormal findIntersection(ray& theray) {
         //printf("%f %f %f\n", theray.dir.x, theray.dir.y, theray.dir.z);
         vertexnormal res = vertexnormal();
@@ -54,7 +60,7 @@ public:
             }
             else {
                 //printf("%f %f\n", alpha, beta);
-                return vertexnormal(p, this->mnormal*(-this->mnormal.dot(theray.dir)));
+                return vertexnormal(p, this->mnormal*(-down));
             }
 		}
 	}

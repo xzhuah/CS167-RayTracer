@@ -33,6 +33,7 @@ public:
 		getIntersection(myray, vn, idx);
 		if (idx == -1) return res;
 		//cout << vn.vertex.x << " " << vn.vertex.y << " " << vn.vertex.z << endl;
+		//cout << idx << endl;
 		ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))));
 		newray.source = newray.source + newray.dir*eps;
 		res = objects[idx]->ambient + objects[idx]->emission;
@@ -43,7 +44,7 @@ public:
 					dis = vn.vertex.getdis(point(lights[i].dir.x, lights[i].dir.y, lights[i].dir.z));
 					decay = 1 / (attenuation_const + attenuation_linear*dis + attenuation_quadratic*dis*dis);
 				}
-				Vec3 light_dir = lights[i].type == 0 ? lights[i].dir : lights[i].dir - Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z);
+				Vec3 light_dir = lights[i].type == 0 ? lights[i].dir :  lights[i].dir - Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z) ;
                 light_dir = Vec3::normalize(light_dir);
 				Vec3 half_angle = Vec3::normalize( Vec3::normalize(myray.dir).negative() + light_dir );
                 //printf("%f %f %f\n", light_dir.x, light_dir.y, light_dir.z);
@@ -51,10 +52,20 @@ public:
                 //printf("%f\n", decay);
                 //printf("%f %f %f\n", lights[i].c.r*decay, lights[i].c.g*decay, lights[i].c.b*decay);
                 //printf("%f %f %f\n", res.r, res.g, res.b);
+
+
 				res = res + lights[i].c * decay *
-					  (objects[idx]->diffuse  * max(vn.mynormal.dot(light_dir), 0) +
+					  (objects[idx]->diffuse  * max(-vn.mynormal.dot(light_dir), 0) +//alway 0??
 				       objects[idx]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[idx]->shininess)
 				      );
+
+				
+
+			/*	cout << "=============" << endl;
+				objects[idx]->debug();
+				cout << vn.mynormal .x<<" "<< vn.mynormal.y <<" "<< vn.mynormal.z <<" "<< endl;
+				cout << light_dir.x << " " << light_dir.y << " " << light_dir.z << " " << endl;
+				cout << res.r<<" " <<res.g<<" "<<res.b<< endl;*/
                 //printf("%f %f %f\n", res.r, res.g, res.b);
                 //printf("<-------------->\n");
 			}

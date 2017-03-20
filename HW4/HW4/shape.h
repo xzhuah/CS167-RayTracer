@@ -3,6 +3,7 @@
 #include "vertexnormal.h"
 #include "matrix44.h"
 #include <iostream>
+#include <string>
 class Shape {
 public:
     color ambient;
@@ -13,6 +14,9 @@ public:
     matrix44 transform;
 	Shape() {
 
+	}
+	virtual string debug() {
+		return "";
 	}
 	virtual vertexnormal findIntersection(ray& theray) {
 		std::cout << "not" << std::endl;
