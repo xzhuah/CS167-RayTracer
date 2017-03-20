@@ -16,8 +16,9 @@ public:
 		image = new pixel[width*height];
 	}
     
-    void calcPixel(int i, int j, ray myray, vector<Shape>& objects, int max_depth) {
-        pixel[i][j] = myCalcPixel(myray, objects, max_depth);
+    void calcPixel(int x, int y, ray myray, vector<Shape>& objects, int max_depth) {
+        color c = myCalcPixel(myray, objects, max_depth);
+        image[x*width + y] = pixel(c.r, c.g, c.b);
     }
 
     color myCalcPixel(ray myray, vector<Shape>& objects, int max_depth) {
