@@ -75,7 +75,7 @@ matrix44  matrix44::createScaleMatrix44(float scale_x, float scale_y, float scal
 }
 
 matrix44 matrix44::createRotateMatrix44(float degrees, const Vec3& axis) {
-    const float PI = 3.14159265;
+    const float PI = 3.14159265f;
     matrix44 ret;
     matrix44 myIdentity = matrix44(1);
     float tmp1[4][4] = { axis.x*axis.x, axis.x*axis.y, axis.x*axis.z, 0,
@@ -89,7 +89,7 @@ matrix44 matrix44::createRotateMatrix44(float degrees, const Vec3& axis) {
                          0,0,0,0 };
     matrix44 myAstar = matrix44(tmp2);
     // You will change this return call
-    ret = myIdentity*cos(degrees*PI / 180.0) + myAAT*(1 - cos(degrees*PI / 180.0)) + myAstar*sin(degrees*PI / 180.0);
+    ret = myIdentity*cos(degrees*PI / 180) + myAAT*(1 - cos(degrees*PI / 180)) + myAstar*sin(degrees*PI / 180);
     ret.matrix[3][3] = 1;
 	return ret;
 }
@@ -320,7 +320,7 @@ bool matrix44::gluInvertMatrix(const float m[16], float invOut[16])
 	if (det == 0)
 		return false;
 
-	det = 1.0 / det;
+	det = 1 / det;
 
 	for (i = 0; i < 16; i++)
 		invOut[i] = inv[i] * det;

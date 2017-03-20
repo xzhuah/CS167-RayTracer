@@ -9,6 +9,7 @@
 
 #include "camera.h"
 #include "shape.h"
+#include <vector>
 using std::vector;
 
 const float eps = 1e-5f;
