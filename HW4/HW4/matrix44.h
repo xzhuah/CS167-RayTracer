@@ -7,7 +7,7 @@ public:
     matrix44();
     matrix44(const float);
 	matrix44(const float[4][4]);
-	matrix44(const matrix44&&);
+	matrix44(const matrix44&);
 
 	//static matrix44 createMatrix44(float rotateX, float rotateY, float rotateZ, float tran_x, float tran_y, float tran_z, float scale_x, float scale_y, float scale_z);
 	static matrix44 createScaleMatrix44(float scale_x, float scale_y, float scale_z);
@@ -44,7 +44,7 @@ matrix44::matrix44(const float the_matrix[4][4]) {
 		}
 	}
 };
-matrix44::matrix44(const matrix44&& mat) {
+matrix44::matrix44(const matrix44& mat) {
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			this->matrix[i][j] = mat.matrix[i][j];
