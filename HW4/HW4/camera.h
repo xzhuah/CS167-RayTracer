@@ -25,15 +25,16 @@ public:
 		camera_right = u;
 		camera_up = w.cross(u).normalize();
 		
-		this->fovy = fovy/180*3.1415926;
+		this->fovy = fovy*3.14159265/180;
 	}
 	ray genRay(int i, int j, int height,int width) {
 	
 		point source(this->posi);
-		
-		float alpha = tan(fovy / 2)*(j - width / 2) / (width / 2);
-		float blta= tan(fovy / 2)*(i-height/2) / (height / 2);
-		Vec3 direction_ray = this->camera_front + this->camera_right*(alpha) + this->camera_up*(blta);
+        float tfovy = tan(fovy / 2);
+        float tfovx = tfovy * width / height;
+		float alpha = tfovx*(j+0.5 - (float)width / 2) / ((float)width / 2);
+		float beta= tfovy*(i+0.5-(float)height/2) / ((float)height / 2);
+		Vec3 direction_ray = this->camera_front + this->camera_right*(alpha) + this->camera_up*(beta);
 		direction_ray.normalize();
 		return ray(source,direction_ray);
 	}

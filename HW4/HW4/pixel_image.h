@@ -43,18 +43,19 @@ public:
 					decay = 1 / (attenuation_const + attenuation_const*dis + attenuation_const*dis*dis);
 				}
 				Vec3 light_dir = lights[i].type == 0 ? lights[i].dir : Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z) - lights[i].dir;
-				Vec3 half_angle = Vec3::normalize(myray.dir) - vn.mynormal * vn.mynormal.dot(myray.dir) * 2;
+                Vec3 intersection_pos = Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z);
+				Vec3 half_angle = Vec3::normalize( Vec3::normalize(myray.dir).negative() + Vec3::normalize(lights[i].dir - intersection_pos) );
 				
 				res = res + lights[i].c * decay *
-					  (objects[i]->diffuse  * max(vn.mynormal.dot(light_dir), 0) +
-				       objects[i]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[i]->shininess)
+					  (objects[idx]->diffuse  * max(vn.mynormal.dot(light_dir), 0) +
+				       objects[idx]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[idx]->shininess)
 				      );
 			}
 		}
 		//printf("before: %f %f %f\n", res.r, res.g, res.b);
-		res = res + myCalcPixel(newray, max_depth - 1);
+		color post = myCalcPixel(newray, max_depth - 1); 
+        res = res + post * objects[idx]->specular;
 		//printf("after: %f %f %f\n", res.r, res.g, res.b);
-		//printf("%f %f %f %f %f %f\n", res.r, res.g, res.b);
 		return res;
 	}
 
