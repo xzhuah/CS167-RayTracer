@@ -37,7 +37,7 @@ public:
 		}
 		else {
 			float t = up / down;
-			if (t < 0) {
+			if (t < eps) {
 				return res;
 			}
 			point p = theray.calcPosi(t);
@@ -53,7 +53,7 @@ public:
                 return res;
             }
             else {
-                printf("%f %f\n", alpha, beta);
+                //printf("%f %f\n", alpha, beta);
                 return vertexnormal(p, this->mnormal*(-this->mnormal.dot(theray.dir)));
             }
 		}

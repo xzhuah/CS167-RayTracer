@@ -35,7 +35,7 @@ color specular;
 color emission;
 float shininess;
 
-float attenuation_const, attenuation_linear, attenuation_quadratic;
+float attenuation_const = 1.0f, attenuation_linear = 0.0f, attenuation_quadratic = 0.0f;
 
 // For multiple objects, read from a file.
 vector<Shape*> objects;

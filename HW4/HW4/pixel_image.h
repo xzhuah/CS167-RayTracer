@@ -35,24 +35,20 @@ public:
 		ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))));
 		newray.source = newray.source + newray.dir*eps;
 		res = objects[idx]->ambient + objects[idx]->emission;
-		float decay, dis;
+		float decay = 1, dis;
 		for (int i = 0; i < lights.size(); i++) {
 			if (visible(vn.vertex, lights[i])) {
 				if (lights[i].type == 1) {
 					dis = vn.vertex.getdis(point(lights[i].dir.x, lights[i].dir.y, lights[i].dir.z));
 					decay = 1 / (attenuation_const + attenuation_const*dis + attenuation_const*dis*dis);
 				}
-				else {
-					decay = 1;
-				}
 				Vec3 light_dir = lights[i].type == 0 ? lights[i].dir : Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z) - lights[i].dir;
 				Vec3 half_angle = Vec3::normalize(myray.dir) - vn.mynormal * vn.mynormal.dot(myray.dir) * 2;
-				printf("before: %f %f %f\n", res.r, res.g, res.b);
+				
 				res = res + lights[i].c * decay *
-					(objects[i]->diffuse  * max(vn.mynormal.dot(light_dir), 0) +
-						objects[i]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[i]->shininess)
-						);
-				printf("after: %f %f %f\n", res.r, res.g, res.b);
+					  (objects[i]->diffuse  * max(vn.mynormal.dot(light_dir), 0) +
+				       objects[i]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[i]->shininess)
+				      );
 			}
 		}
 		//printf("before: %f %f %f\n", res.r, res.g, res.b);
