@@ -28,7 +28,7 @@ public:
         int idx = -1;
         getIntersection(myray, objects, vn, idx);
         if (idx == -1) return res;
-        ray newray(vn.vertex, glm::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))) );
+        ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))) );
         newray.source = newray.source + newray.dir*EPS;
         res = res + objects[idx].ambient + myCalcPixel(newray, objects, max_depth - 1);
         return res;
@@ -54,8 +54,8 @@ private:
         vertexnormal tmp;
         float min_dis = 1e9, cur_dis;
         for (int i = 0; i < objects.size(); i++) {
-            tmp = objects[i].findIntersection(myray.transf(glm::inverse(objects[i].mat4)));
-            tmp = tmp.transf(objects[i].mat4);
+            tmp = objects[i].findIntersection(myray.transf(matrix44::inverse(objects[i].transform)));
+            tmp = tmp.transf(objects[i].transform);
             cur_dis = tmp.vertex.getdis(myray.source);
             if (cur_dis < min_dis) {
                 min_dis = cur_dis;
