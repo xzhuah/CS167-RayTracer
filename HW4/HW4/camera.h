@@ -20,7 +20,7 @@ public:
 		w.normalize();
 		camera_front = w.negative();
         Vec3 u = up;
-		Vec3 u = u.cross(w);
+		u = u.cross(w);
 		u.normalize();
 		camera_right = u;
 		camera_up = w.cross(u);

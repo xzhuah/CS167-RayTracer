@@ -7,7 +7,11 @@
 // Since all files need access to it, we define  as either blank or 
 // , depending on if included in the main program or not.  
 
-const float EPS = 1e-5;
+#include "camera.h"
+#include "shape.h"
+using std::vector;
+
+const float eps = 1e-5f;
 
 int width = 500, height = 500 ; // width and height 
 int maxdepth = 5;

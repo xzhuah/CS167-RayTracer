@@ -3,6 +3,9 @@
 #include "pixel.h"
 #include "FreeImage.h"
 #include "color.h"
+#include "ray.h"
+#include "vertexnormal.h"
+#include "variables.h"
 
 class pixel_image {
 public:
@@ -16,22 +19,22 @@ public:
 		image = new pixel[width*height];
 	}
     
-    void calcPixel(int x, int y, ray myray, vector<Shape>& objects, int max_depth) {
-        color c = myCalcPixel(myray, objects, max_depth);
+    void calcPixel(int x, int y, ray myray, int max_depth) {
+        color c = myCalcPixel(myray, max_depth);
         image[x*width + y] = pixel(c.r, c.g, c.b);
     }
 
-    color myCalcPixel(ray myray, vector<Shape>& objects, int max_depth) {
+    color myCalcPixel(ray myray, int max_depth) {
         if (max_depth <= 0) return color();
 
         color res(0,0,0);
         vertexnormal vn;
         int idx = -1;
-        getIntersection(myray, objects, vn, idx);
+        getIntersection(myray, vn, idx);
         if (idx == -1) return res;
         ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))) );
-        newray.source = newray.source + newray.dir*EPS;
-        res = res + objects[idx].ambient + myCalcPixel(newray, objects, max_depth - 1);
+        newray.source = newray.source + newray.dir*eps;
+        res = res + objects[idx].ambient + myCalcPixel(newray, max_depth - 1);
         return res;
     }
 
@@ -51,7 +54,7 @@ public:
 	}
 
 private:
-    void getIntersection(ray myray, vector<Shape>& objects, vertexnormal& vn, int& idx) {
+    void getIntersection(ray myray, vertexnormal& vn, int& idx) {
         vertexnormal tmp;
         float min_dis = 1e9, cur_dis;
         for (int i = 0; i < objects.size(); i++) {

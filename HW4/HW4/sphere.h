@@ -20,10 +20,10 @@ public:
 
 		float delta = b*b - 4 * a*c;
 
-		if (delta < -EPS) {
+		if (delta < -eps) {
 			return vertexnormal();
 		}
-        else if (delta >= -EPS && delta <= EPS) {
+        else if (delta >= -eps && delta <= eps) {
             point inter_point = theray.calcPosi(-b/2/a);
             Vec3 normal = inter_point.minus(this->center);
             return vertexnormal(inter_point, Vec3::normalize(normal));

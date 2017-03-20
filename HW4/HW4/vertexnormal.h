@@ -1,5 +1,7 @@
 #pragma once
 #include "point.h"
+#include "matrix44.h"
+
 class vertexnormal {
 public:
 	point vertex;
@@ -23,5 +25,27 @@ public:
     vertexnormal(const point& mypoint, const Vec3& mynormal) {
         vertex = mypoint;
         this->mynormal = mynormal;
+    }
+    vertexnormal transf(matrix44 mat) {
+        vertexnormal newvn;
+        float tmp1[4] = { vertex.x, vertex.y, vertex.z, 1 };
+        float tmp2[4] = { mynormal.x, mynormal.y, mynormal.z, 0 };
+        float res[4];
+        for (int i = 0; i < 4; i++) {
+            res[i] = 0;
+            for (int j = 0; j < 4; j++) {
+                res[i] += mat.matrix[i][j] * tmp1[j];
+            }
+        }
+        newvn.vertex = point(res[0], res[1], res[2]);
+        mat = matrix44::transpose(matrix44::inverse(mat));
+        for (int i = 0; i < 4; i++) {
+            res[i] = 0;
+            for (int j = 0; j < 4; j++) {
+                res[i] += mat.matrix[i][j] * tmp1[j];
+            }
+        }
+        newvn.mynormal = Vec3(res[0], res[1], res[2]);
+        return newvn;
     }
 };
