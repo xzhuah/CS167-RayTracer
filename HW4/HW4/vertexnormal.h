@@ -42,7 +42,7 @@ public:
         for (int i = 0; i < 4; i++) {
             res[i] = 0;
             for (int j = 0; j < 4; j++) {
-                res[i] += mat.matrix[i][j] * tmp1[j];
+                res[i] += mat.matrix[i][j] * tmp2[j];
             }
         }
         newvn.mynormal = Vec3(res[0], res[1], res[2]);

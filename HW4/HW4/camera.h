@@ -28,9 +28,10 @@ public:
 		this->fovy = fovy;
 	}
 	ray genRay(int i, int j, int height,int width) {
+	
 		point source(this->posi);
 		float alpha = tan(fovy / 2)*(j - width / 2) / (width / 2);
-		float blta= tan(fovy / 2)*(height/2 -i) / (height / 2);
+		float blta= tan(fovy / 2)*(i-height/2) / (height / 2);
 		Vec3 direction_ray = this->camera_front + this->camera_right*alpha + this->camera_up*blta;
 		direction_ray.normalize();
 		return ray(source,direction_ray);

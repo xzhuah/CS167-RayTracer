@@ -8,7 +8,7 @@
 #include "readfile.h"
 
 int main() {
-    readfile("C:/Users/Darren/Desktop/CS-167-Ray-Tracer/testscenes/scene1.test");
+    readfile("D:/GoogleDownload/testscenes/scene1.test");
 	pixel_image myimage(width, height);
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
@@ -17,4 +17,5 @@ int main() {
 		}
 	}
 	myimage.outputImage("testing2.png");
+	
 }

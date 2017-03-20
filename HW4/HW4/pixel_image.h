@@ -47,6 +47,7 @@ public:
                             ( objects[i]->diffuse * max(vn.mynormal.dot(light_dir), 0) + 
                               objects[i]->specular*pow(max(vn.mynormal.dot(half_angle),0), objects[i]->shininess) 
                             );
+				//cout << diffuse..r<<" "<<diffuse.g<<" " <<dif<<" Look "<<vn.mynormal.dot(light_dir) << endl;
             }
         }
         res = res + myCalcPixel(newray, max_depth - 1);
@@ -75,7 +76,7 @@ private:
         for (int i = 0; i < objects.size(); i++) {
             tmp = objects[i]->findIntersection(myray.transf(matrix44::inverse(objects[i]->transform)));
             tmp = tmp.transf(objects[i]->transform);
-            if (tmp.mynormal.x == 0 && tmp.mynormal.y == 0 && tmp.mynormal.z == 0) return;
+            if (tmp.mynormal.x == 0 && tmp.mynormal.y == 0 && tmp.mynormal.z == 0) continue;
             cur_dis = tmp.vertex.getdis(myray.source);
             if (cur_dis < min_dis) {
                 min_dis = cur_dis;
