@@ -4,6 +4,8 @@
 #include "ray.h"
 #include "Vec3.h"
 #include "shape.h"
+#include <iostream>
+using namespace std;
 class triangle:public Shape {
 public:
 	point a, b, c;
@@ -17,6 +19,10 @@ public:
 		Vec3 ac(c.x - a.x, c.y - a.y, c.z - a.z);
 		mnormal = ab.cross(ac);
 		mnormal.normalize();
+		cout << mnormal.x << " "<<mnormal.y << " "<<mnormal.z << endl;
+		float abc = 0;
+		cin >> abc;
+
 	}
 	virtual vertexnormal findIntersection(ray& theray) {
         vertexnormal res = vertexnormal();
