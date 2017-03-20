@@ -11,6 +11,7 @@ public:
 	color(float, float ,float);
 	color operator+(const color&) const;
 	color operator-(const color&) const;
+    color operator*(const color&) const;
 	color operator*(float) const;
 	color operator/(float) const;
 
@@ -41,6 +42,9 @@ color color::operator+(const color& col) const {
 color color::operator-(const color& col) const {
 	color result(this->r - col.r, this->g - col.g, this->b - col.b);
 	return result;
+}
+color color::operator*(const color& col) const {
+    return color(this->r*col.r, this->g*col.g, this->b*col.b);
 }
 color color::operator*(float index) const {
 	color result(this->r*index, this->g *index, this->b*index);

@@ -40,7 +40,7 @@ public:
 				//ray source inside the sphere
 				point inter_point = theray.calcPosi(r1);
 				Vec3 normal = this->center.minus(inter_point);
-                return vertexnormal(inter_point, Vec3::normalize(normal));
+                return vertexnormal(inter_point, Vec3::normalize(normal).negative());
 			}
 		}
 	}

@@ -35,8 +35,18 @@ public:
         ray newray(vn.vertex, Vec3::normalize(myray.dir - vn.mynormal * 2 * (vn.mynormal.dot(myray.dir))) );
         newray.source = newray.source + newray.dir*eps;
         res = objects[idx].ambient + objects[idx].emission;
+        float decay, dis; 
         for (int i = 0; i < lights.size(); i++) {
-
+            if (visible(vn.vertex, lights[i])) {
+                dis = vn.vertex.getdis(point(lights[i].dir.x, lights[i].dir.y, lights[i].dir.z));
+                decay = 1 / (attenuation_const + attenuation_const*dis + attenuation_const*dis*dis);
+                Vec3 light_dir = lights[i].type == 0 ? lights[i].dir : lights[i].dir - Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z);
+                Vec3 half_angle = Vec3::normalize(myray.dir) - vn.mynormal * vn.mynormal.dot(myray.dir) * 2;
+                res = res + lights[i].c * decay * 
+                            ( objects[i].diffuse * max(vn.mynormal.dot(light_dir), 0) + 
+                              objects[i].specular*pow(max(vn.mynormal.dot(half_angle),0), objects[i].shininess) 
+                            );
+            }
         }
         res = res + myCalcPixel(newray, max_depth - 1);
         return res;
@@ -72,5 +82,21 @@ private:
                 idx = i;
             }
         }
+    }
+    bool visible(point pos, Light light) {
+        Vec3 light_dir = light.type == 0 ? light.dir : light.dir - Vec3(pos.x, pos.y, pos.z);
+        ray myray(pos, light_dir);
+        vertexnormal vn;
+        int idx = -1;
+        getIntersection(myray, vn, idx);
+        if (idx == -1) return true;
+        if (light.type == 0) return false;
+        float dis1 = vn.vertex.getdis(pos);
+        float dis2 = point(light.dir.x, light.dir.y, light.dir.z).getdis(pos);
+        return dis1 > dis2;
+    }
+    float max(float a, float b) {
+        if (a > b) return a;
+        else return b;
     }
 };
