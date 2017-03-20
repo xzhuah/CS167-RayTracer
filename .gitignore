@@ -39,7 +39,10 @@ local.properties
 *.sln
 *.db
 *.opendb
-
+*.dll
+*.lib
+*.vcxproj
+*.filters
 
 # User-specific files
 *.suo
