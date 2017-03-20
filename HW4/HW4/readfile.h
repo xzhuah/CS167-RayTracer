@@ -185,7 +185,8 @@ void readfile(const char* filename)
                         
                         point eyeinit = point(values[0], values[1], values[2]);
                         point center = point(values[3], values[4], values[5]);
-                        point upinit = point(values[6], values[7], values[8]);
+						Vec3 upinit = Vec3(values[6], values[7], values[8]);
+						
                         float fovy = values[9];
                         mycamera = camera(eyeinit, center, upinit, fovy);
                     }
@@ -198,7 +199,7 @@ void readfile(const char* filename)
                 }
                 else if (cmd == "vertex") {
                     validinput = readvals(s, 3, values);
-                    if( validinput ) vertices.push_back(Vec3(values[0], values[1], values[2]));
+                    if( validinput ) vertices.push_back(point(values[0], values[1], values[2]));
                 }
                 else if (cmd == "vertexnormal") {
                     validinput = readvals(s, 3, values);
