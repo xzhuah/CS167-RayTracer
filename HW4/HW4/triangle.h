@@ -18,10 +18,10 @@ public:
 		Vec3 ab(b.x - a.x, b.y - a.y, b.z - a.z);
 		Vec3 ac(c.x - a.x, c.y - a.y, c.z - a.z);
 		mnormal = ab.cross(ac);
+		
 		mnormal.normalize();
-		cout << mnormal.x << " "<<mnormal.y << " "<<mnormal.z << endl;
-		float abc = 0;
-		cin >> abc;
+		
+		
 
 	}
 	virtual vertexnormal findIntersection(ray& theray) {
@@ -44,7 +44,14 @@ public:
             float alpha = (ap.x * ac.y - ap.y * ac.x) / (ab.x * ac.y - ab.y * ac.x);
             float beta = (ap.x - ab.x * alpha) / ac.x;
             if (alpha < 0 || alpha > 1 || beta < 0 || beta > 1 || alpha + beta > 1 ) return res;
-            else return vertexnormal(p, this->mnormal);
+			else {
+				if (this->mnormal.dot(theray.dir) > 0) {
+					this->mnormal.x = -this->mnormal.x;
+					this->mnormal.y = -this->mnormal.y;
+					this->mnormal.z = -this->mnormal.z;
+				}
+				return vertexnormal(p,this->mnormal);
+			}
 		}
 	}
 };

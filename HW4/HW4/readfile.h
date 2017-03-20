@@ -212,7 +212,7 @@ void readfile(const char* filename)
                     }
                     else if (cmd == "tri") {
                         validinput = readvals(s, 3, values);
-                        objects.push_back(new triangle(vertices[(int)values[0]], vertices[(int)values[0]], vertices[(int)values[0]]) );
+                        objects.push_back(new triangle(vertices[(int)values[0]], vertices[(int)values[1]], vertices[(int)values[2]]) );
                     }
                     else {
                         validinput = readvals(s, 3, values);
