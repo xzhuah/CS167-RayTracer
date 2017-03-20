@@ -6,6 +6,8 @@
 #include "camera.h"
 #include "variables.h"
 
+using std::vector;
+
 int main() {
 	pixel_image myimage(width, height);
     camera mycamera(posi, lookat, up, fovy);
