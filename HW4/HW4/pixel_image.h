@@ -21,7 +21,7 @@ public:
     
     void calcPixel(int x, int y, ray myray, int max_depth) {
         color c = myCalcPixel(myray, max_depth);
-        image[x*width + y] = pixel(c.r, c.g, c.b);
+        image[x*width + y] = pixel(c.r*255+0.5, c.g*255+0.5, c.b*255+0.5);
     }
 
     color myCalcPixel(ray myray, int max_depth) {
