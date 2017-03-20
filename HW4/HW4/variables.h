@@ -1,3 +1,4 @@
+#pragma once
 /*****************************************************************************/
 /* This is the program skeleton for homework 2 in CSE167 by Ravi Ramamoorthi */
 /* Extends HW 1 to deal with shading, more transforms and multiple objects   */

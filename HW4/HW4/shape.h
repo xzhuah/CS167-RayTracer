@@ -14,7 +14,7 @@ public:
 
 	}
 	virtual vertexnormal findIntersection(ray& theray) {
-
+		return vertexnormal();
 	}
 	~Shape() {
 
