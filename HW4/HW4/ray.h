@@ -21,7 +21,7 @@ public:
     ray transf(const matrix44& mat) {
         ray newray;
         float tmp1[4] = { source.x, source.y, source.z, 1 };
-        float tmp2[4] = { dir.x, dir.y, dir.z, 0 };
+        float tmp2[4] = { dir.x, dir.y, dir.z, 1 };
         float res[4];
         for (int i = 0; i < 4; i++) {
             res[i] = 0;
@@ -33,10 +33,10 @@ public:
         for (int i = 0; i < 4; i++) {
             res[i] = 0;
             for (int j = 0; j < 4; j++) {
-                res[i] += mat.matrix[i][j] * tmp1[j];
+                res[i] += mat.matrix[i][j] * tmp2[j];
             }
         }
-        newray.dir = Vec3(res[0], res[1], res[2]);
+        newray.dir = Vec3::normalize(Vec3(res[0], res[1], res[2]));
         return newray;
     }
 };
