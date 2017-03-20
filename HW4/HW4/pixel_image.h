@@ -113,7 +113,7 @@ private:
 		float min_dis = 1e9, cur_dis;
 		for (int i = 0; i < objects.size(); i++) {
 			tmp = objects[i]->findIntersection(myray.transf(matrix44::inverse(objects[i]->transform)));
-			tmp = tmp.transf(objects[i]->transform);
+			tmp.transf(objects[i]->transform);
 			if (tmp.mynormal.x == 0 && tmp.mynormal.y == 0 && tmp.mynormal.z == 0) continue;
 			cur_dis = tmp.vertex.getdis(myray.source);
 			if (cur_dis < min_dis) {

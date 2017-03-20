@@ -167,7 +167,7 @@ void readfile(const char* filename)
                         shininess = values[0]; 
                     }
                 } else if (cmd == "attenuation") {
-                    validinput = readvals(s, 1, values);
+                    validinput = readvals(s, 3, values);
                     if (validinput) {
                         attenuation_const = values[0];
                         attenuation_linear = values[1];

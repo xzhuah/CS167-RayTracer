@@ -10,7 +10,7 @@
 using namespace std;
 
 int main() {
-    readfile("D:/GoogleDownload/homework_hw3-submissionscenes/hw3-submissionscenes/scene3.test");
+    readfile("D:/GoogleDownload/homework_hw3-submissionscenes/hw3-submissionscenes/scene1.test");
 	
 	float progress = 0;
 	pixel_image myimage(width, height);
@@ -24,7 +24,7 @@ int main() {
 		cout << i <<"/"<<height<<" "<<progress<<"%"<<endl;//prograss
 	}
 
-	myimage.outputImage("D:/GoogleDownload/homework_hw3-submissionscenes/hw3-submissionscenes/scene3.png");
+	myimage.outputImage("D:/GoogleDownload/homework_hw3-submissionscenes/hw3-submissionscenes/scene1.png");
 	cout << "finish" << endl;
 	/*float aa;
 	cin >> aa;*/
