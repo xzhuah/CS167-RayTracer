@@ -45,7 +45,7 @@ public:
                 res[i] += mat.matrix[i][j] * tmp2[j];
             }
         }
-        newvn.mynormal = Vec3(res[0], res[1], res[2]);
+        newvn.mynormal = Vec3::normalize(Vec3(res[0], res[1], res[2]));
         return newvn;
     }
 };

@@ -40,16 +40,22 @@ public:
 			if (visible(vn.vertex, lights[i])) {
 				if (lights[i].type == 1) {
 					dis = vn.vertex.getdis(point(lights[i].dir.x, lights[i].dir.y, lights[i].dir.z));
-					decay = 1 / (attenuation_const + attenuation_const*dis + attenuation_const*dis*dis);
+					decay = 1 / (attenuation_const + attenuation_linear*dis + attenuation_quadratic*dis*dis);
 				}
-				Vec3 light_dir = lights[i].type == 0 ? lights[i].dir : Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z) - lights[i].dir;
-                Vec3 intersection_pos = Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z);
-				Vec3 half_angle = Vec3::normalize( Vec3::normalize(myray.dir).negative() + Vec3::normalize(lights[i].dir - intersection_pos) );
-				
+				Vec3 light_dir = lights[i].type == 0 ? lights[i].dir : lights[i].dir - Vec3(vn.vertex.x, vn.vertex.y, vn.vertex.z);
+                light_dir = Vec3::normalize(light_dir);
+				Vec3 half_angle = Vec3::normalize( Vec3::normalize(myray.dir).negative() + light_dir );
+                //printf("%f %f %f\n", light_dir.x, light_dir.y, light_dir.z);
+                //printf("%f\n", vn.mynormal.dot(light_dir));
+                //printf("%f\n", decay);
+                //printf("%f %f %f\n", lights[i].c.r*decay, lights[i].c.g*decay, lights[i].c.b*decay);
+                //printf("%f %f %f\n", res.r, res.g, res.b);
 				res = res + lights[i].c * decay *
 					  (objects[idx]->diffuse  * max(vn.mynormal.dot(light_dir), 0) +
 				       objects[idx]->specular * pow(max(vn.mynormal.dot(half_angle), 0), objects[idx]->shininess)
 				      );
+                //printf("%f %f %f\n", res.r, res.g, res.b);
+                //printf("<-------------->\n");
 			}
 		}
 		//printf("before: %f %f %f\n", res.r, res.g, res.b);
